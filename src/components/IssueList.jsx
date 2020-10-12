@@ -32,9 +32,11 @@ class IssueList extends Component {
                 {
                     issues.map((issue,index) => (
                         <ul>
-                            <a>{issue.url}</a>
-                            <li key={issue}>{issue.title}</li>
+                            <div>
+                            <a href={issue.url}>{issue.url}</a>
+                            <li key={issue.id}>{issue.title}</li>
                             <li>{issue.body}</li>
+                            </div>
                         </ul>
                     ))
                 }
