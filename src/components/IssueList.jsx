@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Issue from './Issue';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 
 class IssueList extends Component {
   constructor(props) {
@@ -28,19 +30,13 @@ class IssueList extends Component {
     const { issues } = this.state;
     return ( 
         <>
-            <div>
+            <ul>
                 {
                     issues.map((issue,index) => (
-                        <ul>
-                            <div>
-                            <a href={issue.url}>{issue.url}</a>
-                            <li key={issue.id}>{issue.title}</li>
-                            <li>{issue.body}</li>
-                            </div>
-                        </ul>
+                        <Issue key={issue.id} issue={issue}/>
                     ))
                 }
-            </div>
+            </ul>
         </>    
     );
   }
