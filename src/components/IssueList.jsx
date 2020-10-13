@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import Issue from './Issue';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import Issue from "./Issue";
+import { Route, Link } from "react-router-dom";
 
 class IssueList extends Component {
   constructor(props) {
@@ -15,7 +14,7 @@ class IssueList extends Component {
         "https://api.github.com/repos/facebook/create-react-app/issues"
       );
       const data = await response.json();
-      console.log("Issue Array is: ", data)
+      console.log("Issue Array is: ", data);
       this.setState({
         issues: data,
       });
@@ -28,16 +27,33 @@ class IssueList extends Component {
 
   render() {
     const { issues } = this.state;
-    return ( 
-        <>
-            <ul>
-                {
-                    issues.map((issue,index) => (
-                        <Issue key={issue.id} issue={issue}/>
-                    ))
-                }
-            </ul>
-        </>    
+
+    return (
+      <>
+        {!!issues.length ? (
+          <>
+            <h1>Github Issue List</h1>
+            <Route exact path="/">
+                <ul>
+              {issues.map((issue) => {
+                return (
+                  <li key={issue.id}>
+                    {issue.title}
+                    <Link to={`/issue/${issue.number}`}>View Details</Link>
+                  </li>
+                );
+              })}
+              </ul>
+            </Route>
+            <Route path={`/issue/:issue_number`}>
+                <Link to='/'>Return to List!</Link>
+                <Issue issues={issues} />
+            </Route>
+          </>
+        ) : (
+          <p>Fetching issues...</p>
+        )}
+      </>
     );
   }
 }

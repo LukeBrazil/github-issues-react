@@ -1,18 +1,18 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
-
+import { useParams } from 'react-router-dom';
 const Issue = (props) => {
-  const { issue } = props;
+  const { issues } = props;
+  const { issue_number } = useParams();
+  const issue = issues.find((issue) => {return issue.number === Number(issue_number) ? issue : null;})
   return (
-    <Router>
-    <li>
-      Title: {issue.number}
-      <a href={issue.url} target="_blank">
-       Link:  {issue.url}
-      </a>
-    </li>
-    </Router>
+    <>
+      <h2>{issue.title}</h2>
+      <p>
+        <a href={issue.url}>{issue.url}</a>
+      </p>
+      <p>{issue.body}</p>
+      <h2>Issue Page</h2>
+    </>
   );
 };
 
