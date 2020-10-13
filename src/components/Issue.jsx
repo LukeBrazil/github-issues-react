@@ -1,5 +1,8 @@
 import React from "react";
 import { useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+
+
 const Issue = (props) => {
   const { issues } = props;
   const { issue_number } = useParams();
@@ -7,11 +10,7 @@ const Issue = (props) => {
   return (
     <>
       <h2>{issue.title}</h2>
-      <p>
-        <a href={issue.url}>{issue.url}</a>
-      </p>
-      <p>{issue.body}</p>
-      <h2>Issue Page</h2>
+      <ReactMarkdown source={issue.body} escapeHtml={false} />
     </>
   );
 };
